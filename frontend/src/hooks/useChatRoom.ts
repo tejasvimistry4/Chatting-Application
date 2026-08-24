@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-
 import { useSocketContext } from "../context/SocketContext";
-
 import { SOCKET_EVENTS } from "../socket/events";
 
 export const useChatRoom = (chatId?: string) => {
@@ -12,27 +10,10 @@ export const useChatRoom = (chatId?: string) => {
       return;
     }
 
-    socket.emit(
-      SOCKET_EVENTS.JOIN_ROOM,
-      chatId,
-      (response: { success: boolean; chatId?: string; message?: string }) => {
-        if (response?.success) {
-        } else {
-          console.error("❌ Failed to join chat room:", response?.message);
-        }
-      },
-    );
+    socket.emit(SOCKET_EVENTS.JOIN_ROOM, chatId);
 
     return () => {
-      socket.emit(
-        SOCKET_EVENTS.LEAVE_ROOM,
-        chatId,
-        (response: { success: boolean; message?: string }) => {
-          if (!response?.success) {
-            console.error("❌ Failed to leave chat:", response?.message);
-          }
-        },
-      );
+      socket.emit(SOCKET_EVENTS.LEAVE_ROOM, chatId);
     };
   }, [socket, connected, chatId]);
 };

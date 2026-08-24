@@ -1,9 +1,7 @@
 import { FormEvent, useState } from "react";
-
 import { useNavigate, Link } from "react-router-dom";
 
 import Input from "../../components/common/Input/Input";
-
 import Button from "../../components/common/Button/Button";
 
 import { showErrorToast, showSuccessToast } from "../../utils/toast";
@@ -14,15 +12,11 @@ import { loginThunk } from "../../redux/auth/authThunk";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [error, setError] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent) => {

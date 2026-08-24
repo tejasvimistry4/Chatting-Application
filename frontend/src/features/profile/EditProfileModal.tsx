@@ -1,16 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Camera, Loader2, Save, Trash2, X } from "lucide-react";
-
 import Avatar from "../../components/common/Avatar/Avatar";
-
 import { User } from "../../types/auth";
-
 import { updateProfile } from "../../services/auth.service";
 import { uploadFile } from "../../services/upload.service";
-
 import { useAppDispatch } from "../../redux/store";
 import { updateUser } from "../../redux/auth/authSlice";
-
 import { showErrorToast, showSuccessToast } from "../../utils/toast";
 
 interface Props {
@@ -60,21 +55,16 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
 
     try {
       setUploading(true);
-
       const uploaded = await uploadFile(file);
-
       setAvatar(uploaded.url);
-
       showSuccessToast("Image uploaded.");
     } catch (error: any) {
       console.error("Avatar upload failed:", error);
-
       showErrorToast(
         error?.response?.data?.message || "Unable to upload image.",
       );
     } finally {
       setUploading(false);
-
       event.target.value = "";
     }
   };
@@ -85,12 +75,10 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
 
   const handleSave = async () => {
     const trimmedName = fullName.trim();
-
     if (!trimmedName) {
       showErrorToast("Full name is required.");
       return;
     }
-
     if (trimmedName.length < 2) {
       showErrorToast("Full name must contain at least 2 characters.");
       return;
@@ -105,9 +93,7 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
       });
 
       dispatch(updateUser(updatedUser));
-
       showSuccessToast("Profile updated successfully.");
-
       onClose();
     } catch (error: any) {
       console.error("Profile update failed:", error);
@@ -123,7 +109,6 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">
@@ -145,9 +130,7 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
           </button>
         </div>
 
-        {/* Body */}
         <div className="p-5">
-          {/* Avatar */}
           <div className="flex flex-col items-center">
             <div className="relative">
               <Avatar name={fullName} src={avatar} size="lg" />
@@ -203,7 +186,6 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
             </p>
           </div>
 
-          {/* Name */}
           <div className="mt-6">
             <label
               htmlFor="profile-full-name"
@@ -223,7 +205,6 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
             />
           </div>
 
-          {/* Email */}
           <div className="mt-4">
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Email
@@ -241,8 +222,7 @@ const EditProfileModal = ({ open, user, onClose }: Props) => {
             </p>
           </div>
         </div>
-
-        {/* Footer */}
+                
         <div className="flex gap-3 border-t border-gray-200 p-5">
           <button
             type="button"

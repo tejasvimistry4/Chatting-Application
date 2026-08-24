@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
-
 import { searchUsers } from "..//services/user.service";
-
 import { User } from "../types/auth";
-
 import { useDebounce } from "../hooks/useDebounce";
 
 export const useUserSearch = (search: string) => {
   const [users, setUsers] = useState<User[]>([]);
-
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
-
   const debouncedSearch = useDebounce(search.trim(), 400);
 
   useEffect(() => {

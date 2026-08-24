@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-
 import ChatSidebar from "../components/layout/Sidebar/ChatSidebar";
 import Header from "../components/layout/Header/Header";
-
 import NewChatModal from "../features/chats/NewChatModal";
-
 import { selectChats, selectSelectedChatId } from "../redux/chats/selectors";
-
 import { useAppDispatch, useAppSelector } from "../redux/store";
-
 import {
   addChat,
   selectChat,
@@ -17,23 +12,16 @@ import {
   setChatsError,
   setChatsLoading,
 } from "../redux/chats/chatSlice";
-
 import { getChats } from "../services/chat.service";
 import { showErrorToast } from "../utils/toast";
 
 const DashboardLayout = () => {
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
-
   const user = useAppSelector((state) => state.auth.user);
-
   const { chatId } = useParams();
-
   const chats = useAppSelector(selectChats);
-
   const selectedChatId = useAppSelector(selectSelectedChatId);
-
   const [newChatOpen, setNewChatOpen] = useState(false);
 
   useEffect(() => {
@@ -90,15 +78,10 @@ const DashboardLayout = () => {
 
         const normalizedChats = {
           ...firstPage,
-
           items: normalizedItems,
-
           total: normalizedItems.length,
-
           page: 1,
-
           limit: normalizedItems.length,
-
           totalPages: 1,
         };
 
@@ -110,11 +93,7 @@ const DashboardLayout = () => {
 
         const message =
           error?.response?.data?.message || "Unable to load chats.";
-
-        console.error("❌ Failed to load chats:", error);
-
         dispatch(setChatsError(message));
-
         showErrorToast(message);
       } finally {
         if (!cancelled) {
@@ -132,15 +111,12 @@ const DashboardLayout = () => {
 
   const handleSelectChat = (id: string) => {
     dispatch(selectChat(id));
-
     navigate(`/chat/${id}`);
   };
 
   const handleChatCreated = (chat: any) => {
     dispatch(addChat(chat));
-
     dispatch(selectChat(chat.id));
-
     navigate(`/chat/${chat.id}`);
   };
 

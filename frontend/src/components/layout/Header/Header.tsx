@@ -1,27 +1,20 @@
 import { LogOut, MessageCircle, Pencil, UserCircle } from "lucide-react";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { logout } from "../../../redux/auth/authSlice";
-
 import { disconnectSocket } from "../../../socket/socket";
-
 import EditProfileModal from "../../../features/profile/EditProfileModal";
 
 const Header = () => {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const [profileOpen, setProfileOpen] = useState(false);
-
   const { user } = useAppSelector((state) => state.auth);
 
   const handleLogout = () => {
     disconnectSocket();
-
     dispatch(logout());
 
     navigate("/login", {

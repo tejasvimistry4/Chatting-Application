@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { X, Search } from "lucide-react";
-
 import Avatar from "../../components/common/Avatar/Avatar";
 import { useUserSearch } from "../../hooks/useUserSearch";
-
 import {
   createPrivateChat,
   createGroupChat,
 } from "../../services/chat.service";
-
 import { Chat } from "../../types/chat";
 import { User } from "../../types/auth";
-
 import { showErrorToast, showSuccessToast } from "../../utils/toast";
 
 interface Props {
@@ -24,7 +20,6 @@ type Mode = "private" | "group";
 
 const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
   const [mode, setMode] = useState<Mode>("private");
-
   const [search, setSearch] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [groupName, setGroupName] = useState("");
@@ -116,7 +111,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">
@@ -137,7 +131,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
           </button>
         </div>
 
-        {/* Tabs */}
         <div className="flex border-b border-gray-200">
           <button
             type="button"
@@ -177,7 +170,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
         </div>
 
         <div className="flex-1 overflow-y-auto p-5">
-          {/* Group name */}
           {mode === "group" && (
             <div className="mb-4">
               <label className="mb-1.5 block text-sm font-medium text-gray-700">
@@ -193,7 +185,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
             </div>
           )}
 
-          {/* Search */}
           <div className="relative">
             <Search
               size={18}
@@ -208,7 +199,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
             />
           </div>
 
-          {/* Selected users */}
           {selectedUsers.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
               {selectedUsers.map((user) => (
@@ -226,7 +216,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
             </div>
           )}
 
-          {/* Results */}
           <div className="mt-4 space-y-1">
             {searchLoading && (
               <div className="py-8 text-center text-sm text-gray-500">
@@ -300,7 +289,6 @@ const NewChatModal = ({ open, onClose, onChatCreated }: Props) => {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="flex gap-3 border-t border-gray-200 p-5">
           <button
             type="button"

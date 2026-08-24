@@ -1,9 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 import { loginApi, registerApi } from "../../api/auth.api";
-
 import { LoginPayload, RegisterPayload } from "../../types/auth";
-
 import { STORAGE_KEYS } from "../../constants/storageKeys";
 
 export const loginThunk = createAsyncThunk(
@@ -15,7 +12,6 @@ export const loginThunk = createAsyncThunk(
       const { accessToken, user } = response.data;
 
       localStorage.setItem(STORAGE_KEYS.TOKEN, accessToken);
-
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
 
       return {
@@ -37,7 +33,6 @@ export const registerThunk = createAsyncThunk(
       const { accessToken, user } = response.data;
 
       localStorage.setItem(STORAGE_KEYS.TOKEN, accessToken);
-
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
 
       return {

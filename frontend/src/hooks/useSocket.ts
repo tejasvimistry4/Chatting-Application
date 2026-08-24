@@ -1,11 +1,7 @@
 import { useEffect } from "react";
-
 import { useAppDispatch, useAppSelector } from "../redux/store";
-
 import { selectSelectedChatId } from "../redux/chats/selectors";
-
 import { addMessage } from "../redux/messages/messagesSlice";
-
 import {
   addChat,
   updateChat,
@@ -13,16 +9,12 @@ import {
   updateLastMessage,
   incrementUnreadCount,
 } from "../redux/chats/chatSlice";
-
 import { SOCKET_EVENTS } from "../socket/events";
-
 import { useSocketContext } from "../context/SocketContext";
 
 export const useSocket = () => {
   const dispatch = useAppDispatch();
-
   const { socket, connected } = useSocketContext();
-
   const selectedChatId = useAppSelector(selectSelectedChatId);
 
   useEffect(() => {
@@ -36,7 +28,6 @@ export const useSocket = () => {
       }
 
       dispatch(addMessage(message));
-
       dispatch(
         updateLastMessage({
           chatId: message.chatId,
@@ -74,7 +65,6 @@ export const useSocket = () => {
       if (!chat?.id) {
         return;
       }
-
       dispatch(addChat(chat));
     };
 
@@ -94,7 +84,6 @@ export const useSocket = () => {
       if (!chat?.id) {
         return;
       }
-
       dispatch(updateChat(chat));
     };
 
@@ -114,7 +103,6 @@ export const useSocket = () => {
       if (!payload?.chat?.id) {
         return;
       }
-
       dispatch(updateChat(payload.chat));
     };
 
@@ -133,10 +121,8 @@ export const useSocket = () => {
     const handleMemberRemoved = (payload: any) => {
       if (!payload?.chat) {
         dispatch(removeChat(payload.chatId));
-
         return;
       }
-
       dispatch(updateChat(payload.chat));
     };
 
@@ -155,7 +141,6 @@ export const useSocket = () => {
     const handleMemberLeft = (payload: any) => {
       if (!payload?.chat) {
         dispatch(removeChat(payload.chatId));
-
         return;
       }
       dispatch(updateChat(payload.chat));
@@ -177,7 +162,6 @@ export const useSocket = () => {
       if (!payload?.chatId) {
         return;
       }
-
       dispatch(removeChat(payload.chatId));
     };
 

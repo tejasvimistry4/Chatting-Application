@@ -2,9 +2,7 @@ import { FormEvent, useState } from "react";
 
 interface Props {
   onSend: (content: string) => void;
-
   onTyping?: () => void;
-
   onStopTyping?: () => void;
 }
 
@@ -21,9 +19,7 @@ const MessageInput = ({ onSend, onTyping, onStopTyping }: Props) => {
     }
 
     onSend(value);
-
     setContent("");
-
     onStopTyping?.();
   };
 

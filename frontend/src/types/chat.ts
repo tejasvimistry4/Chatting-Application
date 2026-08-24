@@ -28,9 +28,7 @@ export interface Chat {
   updatedAt: string;
 
   members: ChatMember[];
-
   lastMessage?: LastMessage | null;
-
   unreadCount?: number;
 }
 

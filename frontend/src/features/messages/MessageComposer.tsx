@@ -1,9 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-
 import { Send } from "lucide-react";
-
 import { useSocketContext } from "../../context/SocketContext";
-
 import { SOCKET_EVENTS } from "../../socket/events";
 
 interface Props {
@@ -26,9 +23,6 @@ const MessageComposer = ({ chatId }: Props) => {
 
   const isTypingRef = useRef(false);
 
-  /**
-   * Stop typing when chat changes
-   */
   useEffect(() => {
     return () => {
       if (typingTimeoutRef.current) {
@@ -45,9 +39,6 @@ const MessageComposer = ({ chatId }: Props) => {
     };
   }, [chatId, socket]);
 
-  /**
-   * Emit typing event
-   */
   const handleTyping = () => {
     if (!socket || !connected || !socket.connected || !chatId) {
       return;
@@ -78,9 +69,6 @@ const MessageComposer = ({ chatId }: Props) => {
     }, TYPING_DELAY);
   };
 
-  /**
-   * Send message
-   */
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 

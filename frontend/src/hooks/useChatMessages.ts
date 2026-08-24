@@ -1,7 +1,5 @@
 import { useCallback, useEffect } from "react";
-
 import { useAppDispatch, useAppSelector } from "../redux/store";
-
 import { getMessages } from "../services/message.service";
 
 import {

@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
-
 import { Message } from "../../types/message";
-
 import MessageBubble from "./MessageBubble";
 
 interface Props {
@@ -32,9 +30,7 @@ const MessageList = ({ messages, currentUserId, loading = false }: Props) => {
       <div className="flex flex-1 items-center justify-center">
         <div className="text-center">
           <div className="mb-3 text-3xl">👋</div>
-
           <p className="text-sm font-medium text-gray-700">No messages yet</p>
-
           <p className="mt-1 text-xs text-gray-500">Send the first message.</p>
         </div>
       </div>

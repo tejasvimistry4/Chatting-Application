@@ -1,14 +1,9 @@
 import { UserPlus, Trash2, UserMinus, LogOut, Pencil, X } from "lucide-react";
-
 import { useState } from "react";
-
 import Avatar from "../../components/common/Avatar/Avatar";
-
 import { Chat } from "../../types/chat";
 import { User } from "../../types/auth";
-
 import { useUserSearch } from "../../hooks/useUserSearch";
-
 import {
   addGroupMembers,
   deleteGroup,
@@ -16,7 +11,6 @@ import {
   removeGroupMember,
   renameGroup,
 } from "../../services/chat.service";
-
 import { showErrorToast, showSuccessToast } from "../../utils/toast";
 
 interface Props {
@@ -37,15 +31,10 @@ const GroupSettingsModal = ({
   onGroupRemoved,
 }: Props) => {
   const [editingName, setEditingName] = useState(false);
-
   const [groupName, setGroupName] = useState(chat.name || "");
-
   const [addingMembers, setAddingMembers] = useState(false);
-
   const [search, setSearch] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   const { users, loading: searchLoading } = useUserSearch(search);
 
   if (!open) {
@@ -76,13 +65,9 @@ const GroupSettingsModal = ({
 
     try {
       setLoading(true);
-
       await renameGroup(chat.id, groupName.trim());
-
       onChatUpdated();
-
       setEditingName(false);
-
       showSuccessToast("Group renamed successfully.");
     } catch (error: any) {
       showErrorToast(
@@ -96,13 +81,9 @@ const GroupSettingsModal = ({
   const handleAddMember = async (user: User) => {
     try {
       setLoading(true);
-
       await addGroupMembers(chat.id, [user.id]);
-
       showSuccessToast(`${user.fullName} added to the group.`);
-
       setSearch("");
-
       onChatUpdated();
     } catch (error: any) {
       showErrorToast(error?.response?.data?.message || "Unable to add member.");
@@ -128,11 +109,8 @@ const GroupSettingsModal = ({
 
     try {
       setLoading(true);
-
       await removeGroupMember(chat.id, memberId);
-
       showSuccessToast(`${member.user.fullName} removed.`);
-
       onChatUpdated();
     } catch (error: any) {
       showErrorToast(
@@ -154,11 +132,8 @@ const GroupSettingsModal = ({
 
     try {
       setLoading(true);
-
       await leaveGroup(chat.id);
-
       showSuccessToast("You left the group.");
-
       onGroupRemoved();
     } catch (error: any) {
       showErrorToast(
@@ -180,11 +155,8 @@ const GroupSettingsModal = ({
 
     try {
       setLoading(true);
-
       await deleteGroup(chat.id);
-
       showSuccessToast("Group deleted.");
-
       onGroupRemoved();
     } catch (error: any) {
       showErrorToast(
@@ -198,8 +170,6 @@ const GroupSettingsModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
-        {/* Header */}
-
         <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">
@@ -221,10 +191,7 @@ const GroupSettingsModal = ({
           </button>
         </div>
 
-        {/* Content */}
-
         <div className="min-h-0 flex-1 overflow-y-auto p-5">
-          {/* Group name */}
 
           <div className="mb-6">
             <div className="mb-2 flex items-center justify-between">
@@ -270,8 +237,6 @@ const GroupSettingsModal = ({
             )}
           </div>
 
-          {/* Members */}
-
           <div>
             <div className="mb-3 flex items-center justify-between">
               <p className="text-sm font-semibold text-gray-900">
@@ -289,8 +254,6 @@ const GroupSettingsModal = ({
                 </button>
               )}
             </div>
-
-            {/* Add member search */}
 
             {addingMembers && isAdmin && (
               <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 p-3">
@@ -348,8 +311,6 @@ const GroupSettingsModal = ({
               </div>
             )}
 
-            {/* Member list */}
-
             <div className="space-y-1">
               {chat.members.map((member) => {
                 const isCurrentUser = member.userId === currentUserId;
@@ -402,8 +363,6 @@ const GroupSettingsModal = ({
               })}
             </div>
           </div>
-
-          {/* Actions */}
 
           <div className="mt-6 border-t border-gray-200 pt-5">
             <button

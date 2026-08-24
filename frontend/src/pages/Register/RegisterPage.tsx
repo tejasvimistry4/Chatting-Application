@@ -14,18 +14,13 @@ import { registerThunk } from "../../redux/auth/authThunk";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
+
   const [fullName, setFullName] = useState("");
-
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [error, setError] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent) => {

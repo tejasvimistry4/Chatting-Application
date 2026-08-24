@@ -1,11 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
 import { Socket } from "socket.io-client";
-
 import { createSocket, disconnectSocket } from "../socket/socket";
-
 import { useAppSelector } from "../redux/store";
-
 import { SOCKET_EVENTS } from "../socket/events";
 
 interface TypingUser {
@@ -78,7 +74,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         return;
       }
 
-      // Ignore our own typing event.
       if (data.userId === user.id) {
         return;
       }
@@ -107,9 +102,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       });
     };
 
-    /**
-     * Another user stopped typing.
-     */
     const handleStopTyping = (data: { chatId: string; userId: string }) => {
       if (!data?.chatId || !data?.userId) {
         return;
@@ -126,9 +118,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
           const copy = {
             ...previous,
           };
-
           delete copy[data.chatId];
-
           return copy;
         }
 
@@ -145,9 +135,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     newSocket.on(SOCKET_EVENTS.TYPING, handleTyping);
     newSocket.on(SOCKET_EVENTS.STOP_TYPING, handleStopTyping);
     setSocket(newSocket);
-
-    // Connect AFTER listeners
-    // are registered.
     newSocket.connect();
 
     return () => {
@@ -159,9 +146,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       newSocket.off(SOCKET_EVENTS.STOP_TYPING, handleStopTyping);
 
       newSocket.disconnect();
-
       disconnectSocket();
-
       setSocket(null);
       setConnected(false);
       setTypingUsers({});

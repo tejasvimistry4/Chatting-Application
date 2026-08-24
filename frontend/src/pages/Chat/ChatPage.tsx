@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MoreVertical } from "lucide-react";
 
 import Avatar from "../../components/common/Avatar/Avatar";
-
 import MessageList from "../../features/messages/MessageList";
 import MessageComposer from "../../features/messages/MessageComposer";
 import GroupSettingsModal from "../../features/chats/GroupSettingsModal";
@@ -13,11 +12,8 @@ import { useChatMessages } from "../../hooks/useChatMessages";
 import { useChatRoom } from "../../hooks/useChatRoom";
 
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-
 import { selectSelectedChat } from "../../redux/chats/selectors";
-
 import { removeChat, setSelectedChat } from "../../redux/chats/chatSlice";
-
 import { getChat } from "../../services/chat.service";
 
 const ChatPage = () => {
@@ -26,13 +22,9 @@ const ChatPage = () => {
   }>();
 
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
-
   const user = useAppSelector((state) => state.auth.user);
-
   const chat = useAppSelector(selectSelectedChat);
-
   const { messages, loading } = useChatMessages(chatId);
 
   useChatRoom(chatId);
@@ -47,7 +39,6 @@ const ChatPage = () => {
     const loadChat = async () => {
       try {
         const response = await getChat(chatId);
-
         dispatch(setSelectedChat(response.data.chat));
       } catch (error) {
         console.error("Failed to load chat:", error);
@@ -76,7 +67,6 @@ const ChatPage = () => {
 
     try {
       const response = await getChat(chatId);
-
       dispatch(setSelectedChat(response.data.chat));
     } catch (error) {
       console.error("Failed to refresh group:", error);
@@ -89,9 +79,7 @@ const ChatPage = () => {
     }
 
     dispatch(removeChat(chatId));
-
     setGroupSettingsOpen(false);
-
     navigate("/");
   };
 
@@ -105,8 +93,6 @@ const ChatPage = () => {
 
   return (
     <div className="flex h-full flex-col bg-white">
-      {/* Chat header */}
-
       <header className="flex h-16 shrink-0 items-center gap-3 border-b border-gray-200 px-5">
         <Avatar name={chatName} src={chatAvatar} size="md" />
 
@@ -122,8 +108,6 @@ const ChatPage = () => {
           </p>
         </div>
 
-        {/* Group menu */}
-
         {chat.type === "GROUP" && (
           <button
             type="button"
@@ -136,19 +120,12 @@ const ChatPage = () => {
         )}
       </header>
 
-      {/* Messages */}
-
       <MessageList
         messages={messages}
         loading={loading}
         currentUserId={user?.id || ""}
       />
-
-      {/* Composer */}
-
       <MessageComposer chatId={chatId} />
-
-      {/* Group settings */}
 
       {chat.type === "GROUP" && (
         <GroupSettingsModal

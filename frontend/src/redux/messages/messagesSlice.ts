@@ -4,25 +4,19 @@ import { Message } from "../../types/message";
 
 interface MessagesState {
   byChatId: Record<string, Message[]>;
-
   loadingByChatId: Record<string, boolean>;
-
   errorByChatId: Record<string, string | null>;
 }
 
 const initialState: MessagesState = {
   byChatId: {},
-
   loadingByChatId: {},
-
   errorByChatId: {},
 };
 
 const messagesSlice = createSlice({
   name: "messages",
-
   initialState,
-
   reducers: {
     setMessages: (
       state,
@@ -32,9 +26,7 @@ const messagesSlice = createSlice({
       }>,
     ) => {
       state.byChatId[action.payload.chatId] = action.payload.messages;
-
       state.loadingByChatId[action.payload.chatId] = false;
-
       state.errorByChatId[action.payload.chatId] = null;
     },
 
@@ -124,15 +116,12 @@ const messagesSlice = createSlice({
       }>,
     ) => {
       state.errorByChatId[action.payload.chatId] = action.payload.error;
-
       state.loadingByChatId[action.payload.chatId] = false;
     },
 
     clearMessages: (state, action: PayloadAction<string>) => {
       delete state.byChatId[action.payload];
-
       delete state.loadingByChatId[action.payload];
-
       delete state.errorByChatId[action.payload];
     },
   },

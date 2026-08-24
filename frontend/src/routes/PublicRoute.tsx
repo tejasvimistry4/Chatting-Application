@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from "react-router-dom";
-
 import { useAppSelector } from "../redux/store";
 
 const PublicRoute = () => {
