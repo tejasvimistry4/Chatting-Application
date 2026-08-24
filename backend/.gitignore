@@ -26,3 +26,5 @@ yarn-error.log*
 /logs
 
 /src/generated/prisma
+
+backend/uploads/
